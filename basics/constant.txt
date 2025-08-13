@@ -1,0 +1,28 @@
+package main
+
+import "fmt"
+
+const pi = 3.14
+const GRAVITY = 9.81
+
+func main() {
+	const days int = 7
+	const (
+		monday    int = 1
+		tuesday   int = 2
+		wednesday int = 3
+		thursday  int = 4
+		friday    int = 5
+		saturday      = 6
+		sunday    int = 7
+	)
+	fmt.Println("Value of Pi:", pi)
+	fmt.Println("Value of Gravity:", GRAVITY)
+	fmt.Println("Value of Monday:", monday)
+	fmt.Println("Value of Tuesday:", tuesday)
+	fmt.Println("Value of Wednesday:", wednesday)
+	fmt.Println("Value of Thursday:", thursday)
+	fmt.Println("Value of Friday:", friday)
+	fmt.Println("Value of Saturday:", saturday)
+	fmt.Println("Value of Sunday:", sunday)
+}
