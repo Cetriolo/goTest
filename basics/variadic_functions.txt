@@ -1,0 +1,26 @@
+package main
+
+import "fmt"
+
+func main() {
+	// // func functionName(param1 type1, param2 type2, param3... type3) returnType {
+	// // 	// function body
+	// // }
+	// sumResult := sum(1, 2, 3, 4, 5)
+	// fmt.Println("Sum Result:", sumResult)
+
+	statement, total := sum("The total is: ", 1, 2, 3)
+	fmt.Println(statement, total)
+	numbers := []int{10, 20, 30, 40, 50}
+
+	statement, total = sum("The total of numbers is: ", numbers...)
+	fmt.Println(statement, total)
+}
+
+func sum(returnString string, nums ...int) (string, int) {
+	total := 0
+	for _, v := range nums {
+		total += v
+	}
+	return returnString, total
+}

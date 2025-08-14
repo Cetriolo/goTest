@@ -1,0 +1,73 @@
+package main
+
+import (
+	"fmt"
+	"unicode/utf8"
+)
+
+func main() {
+
+	message := "Hello,\n GO"
+	message1 := "Hello,\t GO"
+	message2 := "Hello,\r GO"
+	rawMessage := `hello\nGo`
+	println(message)
+	println(message1)
+	println(message2)
+	println(rawMessage)
+
+	println(len(message))
+
+	println(message[0])
+	greeting := "Hello"
+	name := "Pippo"
+	msg := greeting + " " + name
+	println(msg)
+
+	result := greeting == name
+	println(result)
+
+	str1 := "apple"
+	str2 := "banana"
+	str3 := "app"
+
+	fmt.Println(str1)
+	fmt.Println(str2)
+	fmt.Println(str3 < str1)
+
+	for i, char := range message {
+		fmt.Printf("Character %d: %c\n", i, char)
+	}
+
+	fmt.Println("rune count", utf8.RuneCountInString(message))
+
+	greetingWithName := greeting + " " + name
+	fmt.Println(greetingWithName)
+
+	var ch rune = 'A'
+	fmt.Println(ch)
+
+	jch := '好'
+	fmt.Println(jch)
+
+	fmt.Printf("Rune: %c, Unicode: %U\n", jch, jch)
+
+	jstring := string(jch)
+	fmt.Println(jstring)
+	fmt.Printf("type of jstring is %T \n", jstring)
+	fmt.Printf("type of jch is %T \n", jch)
+
+	const CHINESE = "你好"
+
+	fmt.Println(CHINESE)
+	chinHello := CHINESE
+	for _, runeValue := range chinHello {
+		fmt.Printf("Character: %c\n", runeValue)
+		fmt.Printf("Character: %v\n", runeValue)
+	}
+
+	// Print a smiley face using a Unicode rune
+	smile := '😊'
+	fmt.Printf("Smiley: %c (Unicode: %U)\n", smile, smile)
+
+}

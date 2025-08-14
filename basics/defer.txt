@@ -1,0 +1,19 @@
+package main
+
+import "fmt"
+
+func main() {
+	process(10)
+}
+
+func process(i int) {
+	defer fmt.Println(" Processing complete: ", i)
+	defer fmt.Print(i)
+
+	defer fmt.Println(" Processing almost complete")
+	defer fmt.Println("  Processing...")
+	fmt.Println("Hello")
+	i++
+	fmt.Println(i)
+
+}

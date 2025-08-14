@@ -1,0 +1,21 @@
+package main
+
+import "fmt"
+
+func main() {
+	// panic(interface{})
+	process(2)
+
+	process(-1) // This will cause a panic
+}
+
+func process(i int) {
+
+	defer fmt.Println("Defer 1")
+	if i < 0 {
+		panic("Negative value encountered")
+		fmt.Println("Panicked")
+		defer fmt.Println("Defer 2")
+	}
+	fmt.Println("Processing:", i)
+}

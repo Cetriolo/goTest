@@ -1,0 +1,61 @@
+package main
+
+import "fmt"
+
+func main() {
+	fmt.Println(add(2, 3))
+	var c, d float64 = divide(10, 2)
+	a, b := divide(10, 2)
+	fmt.Println(a, b)
+	fmt.Println(c, d)
+	number1 := 5
+	number2 := 10
+	fmt.Println(add(number1, number2))
+	fmt.Println(number1)
+
+	greet := func() {
+		fmt.Println("This is an anonymous function")
+	}
+	greet()
+	operation := subtract
+
+	result := operation(10, 5)
+	fmt.Println("Result of subtraction:", result)
+
+	newResult := applyOperation(10, 5, add)
+	fmt.Println("Result of addition:", newResult)
+
+	multiplyByThree := createMultiplier(3)
+	fmt.Println("Result of multiplication by 3:", multiplyByThree(5))
+}
+
+func add(a int, b int) int {
+	return a + b
+}
+
+// Public function (exported, starts with uppercase)
+func Multiply(a int, b int) int {
+	return a * b
+}
+
+// Private function (unexported, starts with lowercase)
+func subtract(a int, b int) int {
+	return a - b
+}
+
+func divide(a int, b int) (float64, float64) {
+	if b == 0 {
+		return 0, 0
+	}
+	return float64(a) / float64(b), float64(a) / float64(b)
+}
+
+func applyOperation(x int, y int, operation func(int, int) int) int {
+	return operation(x, y)
+}
+
+func createMultiplier(factor int) func(int) int {
+	return func(x int) int {
+		return x * factor
+	}
+}
