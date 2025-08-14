@@ -1,0 +1,62 @@
+package main
+
+import (
+	"fmt"
+	"slices"
+)
+
+func main() {
+	//var sliceName[]elementType
+	// var numbers []int
+
+	// var numbers1 []int = []int{1, 2, 3}
+
+	// numbers2 := []int{9,8,7}
+
+	slice := make([]int, 5) // creates a slice of int with length 5 and capacity 5
+	a := [5]int{1, 2, 3, 4, 5}
+
+	slice = a[1:4]
+	fmt.Println(slice)
+
+	slice = append(slice, 6, 7)
+	fmt.Println(slice)
+
+	sliceCopy := make([]int, len(slice))
+	fmt.Println(sliceCopy)
+	copy(sliceCopy, slice)
+	fmt.Println(sliceCopy)
+	var nilSlice []int
+	fmt.Println(nilSlice)
+	for i, v := range slice {
+		fmt.Printf("slice[%d] = %d\n", i, v)
+	}
+
+	fmt.Println(slice[1])
+
+	if slices.Equal(slice, sliceCopy) {
+		fmt.Println("The slices are equal.")
+	} else {
+		fmt.Println("The slices are not equal.")
+	}
+	twoD := make([][]int, 3)
+
+	for i := 0; i < 3; i++ {
+		innerLen := i + 1
+		twoD[i] = make([]int, innerLen)
+		for j := 0; j < innerLen; j++ {
+			twoD[i][j] = i + j
+			//fmt.Printf("adding %d to twoD[%d]\n", twoD[i][j], i)
+		}
+	}
+
+	fmt.Println("Two-dimensional slice:")
+	for i := 0; i < len(twoD); i++ {
+		fmt.Printf("twoD[%d] = %v\n", i, twoD[i])
+	}
+
+	slice2 := slice[2:4]
+
+	fmt.Println("Slice2:", slice2)
+	fmt.Println("Slice2 len:", len(slice2))
+}
