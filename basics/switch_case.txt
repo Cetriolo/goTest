@@ -55,7 +55,7 @@ func main() {
 
 }
 
-func checkType(x interface{}) {
+func checkType(x any) {
 	switch v := x.(type) {
 	case int:
 		fmt.Println("x is an int:", v)

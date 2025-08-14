@@ -53,9 +53,14 @@ func main() {
 	}
 
 	fmt.Println(matrix)
+	
 
+
+	var newArray *[3]int
+	newArray = &originalArray
+
+	fmt.Println("Pointer to originalArray:", newArray)
 }
-
 func function() (int, int) {
 	return 1, 2
 }

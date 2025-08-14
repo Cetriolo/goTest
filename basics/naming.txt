@@ -8,7 +8,7 @@ type Employee struct {
 	Age       int
 }
 
-func main() {
+func basics() {
 	const MAXRETRIES = 5
 	var employeeID = 1001
 	fmt.Println("Employee ID:", employeeID)

@@ -1,11 +1,11 @@
-package main
+package aaa
 
 import (
 	"fmt"
 	"slices"
 )
 
-func main() {
+func aaa() {
 	//var sliceName[]elementType
 	// var numbers []int
 
