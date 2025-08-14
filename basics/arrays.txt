@@ -1,0 +1,61 @@
+package main
+
+import "fmt"
+
+func main() {
+	//var arrayName [size]elementsType
+	var numbers [5]int
+	fmt.Println(numbers)
+
+	numbers[4] = 10
+
+	fmt.Println(numbers)
+
+	numbers[0] = 9
+
+	fruits := [4]string{"apple", "banana", "cherry", "date"}
+	fmt.Println(fruits)
+
+	fruits[0] = "kiwi"
+	fmt.Println(fruits[2])
+
+	originalArray := [3]int{1, 2, 3}
+
+	copiedArray := originalArray // This creates a copy of the array
+
+	copiedArray[0] = 100
+	fmt.Println(copiedArray)
+	fmt.Println(originalArray)
+
+	for i := 0; i < len(numbers); i++ {
+		fmt.Println(numbers[i], i)
+	}
+
+	for index, value := range numbers {
+		fmt.Printf("Index:%d value:%d\n", index, value)
+	}
+	a, b := function()
+	fmt.Println(a, b)
+
+	c, _ := function()
+	fmt.Println(c)
+
+	d := 5
+
+	_ = d
+
+	fmt.Println("number:", len(numbers))
+
+	var matrix [3][3]int = [3][3]int{
+		{1, 2, 3},
+		{4, 5, 6},
+		{7, 8, 9},
+	}
+
+	fmt.Println(matrix)
+
+}
+
+func function() (int, int) {
+	return 1, 2
+}

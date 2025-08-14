@@ -1,0 +1,69 @@
+package main
+
+import "fmt"
+
+func main() {
+
+	fruit := "apple"
+
+	switch fruit {
+	case "apple":
+		fmt.Println("apple")
+
+	case "banana":
+		fmt.Println("banana")
+
+		// Code for case value2
+	default:
+		fmt.Println("fruit")
+		// Code for default case
+	}
+
+	day := "Monday"
+	switch day {
+	case "Monday", "Tuesday", "Wednesday", "Thursday", "Friday":
+		fmt.Println("It's a weekday.")
+	case "Saturday", "Sunday":
+		fmt.Println("It's a weekend.")
+	default:
+		fmt.Println("Invalid day.")
+	}
+
+	number := 15
+	switch {
+	case number < 10:
+		fmt.Println("Number is less than 10")
+	case number >= 10 && number <= 20:
+		fmt.Println("Number is between 10 and 20")
+	default:
+		fmt.Println("Number is greater than 20")
+	}
+
+	num := 2
+
+	switch {
+	case num > 1:
+		fmt.Println("Number is 1")
+		fallthrough
+	case num == 2:
+		fmt.Println("Number is 2")
+	default:
+		fmt.Println("Number is not 1 or 2")
+	}
+
+	checkType("a")
+
+}
+
+func checkType(x interface{}) {
+	switch v := x.(type) {
+	case int:
+		fmt.Println("x is an int:", v)
+	case string:
+		fmt.Println("x is a string:", v)
+	case bool:
+		fmt.Println("x is a bool:", v)
+	default:
+		fmt.Println("Unknown type")
+	}
+}
