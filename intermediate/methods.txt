@@ -1,0 +1,55 @@
+package main
+
+import "fmt"
+
+type Rectangle struct {
+	length float64
+	width  float64
+}
+
+func (r Rectangle) Area() float64 {
+	return r.length * r.width
+}
+
+func (r *Rectangle) Scale(factor float64) {
+	r.length *= factor
+	r.width *= factor
+}
+
+type MyInt int
+
+//user methods
+func (m MyInt) IsPositive() bool {
+	return m > 0
+}
+
+func main() {
+	r := Rectangle{
+		length: 5,
+		width:  10,
+	}
+	fmt.Println(r.Area())
+
+	fmt.Println("Scaling rectangle by factor of 2")
+	r.Scale(2)
+	fmt.Println(r.Area())
+
+	num := MyInt(5)
+	fmt.Println(num.IsPositive())
+	num = MyInt(-5)
+	fmt.Println(num.IsPositive())
+	num.welcomeString()
+	s := Shape{Rectangle: Rectangle{
+		length: 3,
+		width:  4,
+	}}
+	fmt.Println(s.Area())
+}
+
+func (MyInt) welcomeString() {
+	fmt.Println("Welcome")
+}
+
+type Shape struct {
+	Rectangle
+}

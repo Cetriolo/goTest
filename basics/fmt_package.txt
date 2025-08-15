@@ -1,0 +1,61 @@
+package main
+
+import "fmt"
+
+func main() {
+	//PRINT
+	fmt.Print("Hello")
+	fmt.Print("World")
+	fmt.Print(12)
+
+	fmt.Println("Hello")
+	fmt.Println("World")
+	fmt.Println(12)
+
+	fmt.Printf("Hello")
+	fmt.Printf("World")
+
+	name := "John"
+	age := 30
+	fmt.Printf("Name: %s\n", name)
+	fmt.Printf("Age: %d\n", age)
+
+	//FORMATTING
+	s := fmt.Sprint("Hello ", "WORLD!", 123, 456)
+	fmt.Println(s)
+	s = fmt.Sprintln("Hello ", "WORLD!", 123, 456)
+	fmt.Println(s)
+	fmt.Print(s)
+
+	s = fmt.Sprintf("Hello %s, age %d", name, age)
+	fmt.Println(s)
+
+	//SCANNING
+
+	// fmt.Print("Enter your name: ")
+	// fmt.Scan(&nm)
+	// fmt.Print("Enter your age: ")
+	// fmt.Scan(&ag)
+
+	// fmt.Println("Name:", nm, "Age:", ag)
+
+	// fmt.Scanln(&nm, &ag)
+	// fmt.Println("Name:", nm, "Age:", ag)
+
+	fmt.Scanf("%s, %d", &name, &age)
+	fmt.Printf("Name: %s, Age: %d\n", name, age)
+
+	//ERROR
+	age = 15
+	if err := checkAge(age); err != nil {
+		fmt.Println("Error:", err)
+	}
+
+}
+
+func checkAge(age int) error {
+	if age < 18 {
+		return fmt.Errorf("Minor: %d", age)
+	}
+	return nil
+}

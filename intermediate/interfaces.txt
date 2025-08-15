@@ -1,0 +1,92 @@
+package main
+
+import (
+	"fmt"
+	"math"
+)
+
+type geometry interface {
+	area() float64
+	perimeter() float64
+}
+
+type Rect struct {
+	width, height float64
+	g             geometry
+}
+
+type Circle struct {
+	radius float64
+}
+
+func (r Rect) area() float64 {
+	return r.height * r.height
+}
+
+func (r Rect) perimeter() float64 {
+	return 2 * (r.width + r.height)
+}
+func (c Circle) area() float64 {
+	return math.Pi * c.radius * c.radius
+}
+
+type Square struct {
+	side float64
+	g    geometry
+}
+
+// Implement geometry interface for Square
+func (s Square) area() float64 {
+	return s.side * s.side
+}
+
+func (s Square) perimeter() float64 {
+	return 4 * s.side
+}
+func measure(g geometry) {
+	fmt.Println("Area:", g.area())
+	fmt.Println("Perimeter:", g.perimeter())
+}
+
+func main() {
+	s := Square{
+		side: 5,
+		g:    Square{side: 5},
+	}
+	fmt.Println("Area of square:", s.area())
+
+	r := Rect{
+		width:  5,
+		height: 10,
+		g:      Rect{width: 5, height: 10},
+	}
+	fmt.Println("Area of rectangle:", r.area())
+	fmt.Println("Perimeter of rectangle:", r.perimeter())
+
+	measure(r)
+	myPrinter("Hello", "World", 42, 3.14, r, s)
+
+	whatType("Hello")
+}
+
+func myPrinter(i ...interface{}) {
+	for _, v := range i {
+		fmt.Println(v)
+
+	}
+}
+
+func whatType(v interface{}) {
+	switch v.(type) {
+	case string:
+		fmt.Println("String:", v)
+	case int:
+		fmt.Println("Int:", v)
+	case float64:
+		fmt.Println("Float64:", v)
+	case geometry:
+		fmt.Println("Geometry:", v)
+	default:
+		fmt.Println("Unknown type")
+	}
+}

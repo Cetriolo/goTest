@@ -1,0 +1,47 @@
+package main
+
+import "fmt"
+
+func main() {
+	// %v    the value in a default format
+	// %T    a Go-syntax representation of the type of the value
+	// %d    base 10 integer
+	// %b    base 2 integer
+	// %o    base 8 integer
+	// %x    base 16 integer, with lower-case letters
+	// %X    base 16 integer, with upper-case letters
+	// %f    decimal point but no exponent, e.g. 123.456
+	// %e    scientific notation, e.g. -1234.456e+78
+	// %E    scientific notation, e.g. -1234.456E+78
+	// %s    string or slice of bytes
+	// %q    double-quoted string safely escaped with Go syntax
+	// %p    pointer address
+	// %c    the character represented by the corresponding Unicode code point
+	// %#v   a Go-syntax representation of the value
+	// %%    a literal percent sign
+
+	// i := 15.5
+	// string := "Hello, World!"
+
+	// fmt.Printf("%v\n", i)
+	// fmt.Printf("%#v\n", i)
+	// fmt.Printf("%T\n", i)
+	// fmt.Printf("%v%%\n", i)
+
+	// fmt.Printf("%v\n", string)
+	// fmt.Printf("%#v\n", string)
+
+	int := 18
+	fmt.Printf("%b\n", int)   // base 10
+	fmt.Printf("%d\n", int)   // base 10
+	fmt.Printf("%+d\n", int)  // base 10
+	fmt.Printf("%o\n", int)   // base 10
+	fmt.Printf("%O\n", int)   // base 10
+	fmt.Printf("%x\n", int)   // base 10
+	fmt.Printf("%X\n", int)   // base 10
+	fmt.Printf("%#x\n", int)  // base 10
+	fmt.Printf("%4d\n", int)  // base 10
+	fmt.Printf("%-4d\n", int) // base 10
+	fmt.Printf("%04d\n", int) // base 10
+
+}
