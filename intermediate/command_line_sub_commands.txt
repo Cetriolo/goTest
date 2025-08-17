@@ -8,9 +8,11 @@ import (
 
 func main() {
 
-	flag.String("user", "default value", "a string flag")
+	stringFlag := flag.String("user", "default value", "a string flag")
 	flag.Parse()
-	fmt.Println("user:", flag.Lookup("user").Value)
+	fmt.Println("user:", *stringFlag)
+
+	
 	subcommand1 := flag.NewFlagSet("firstSub", flag.ExitOnError)
 
 	subcommand2 := flag.NewFlagSet("secondSub", flag.ExitOnError)

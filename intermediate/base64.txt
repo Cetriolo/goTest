@@ -17,7 +17,14 @@ func main() {
 	}
 	fmt.Println("Decoded string:", string(decoded))
 
-	urlSafeEncorded := base64.URLEncoding.EncodeToString(data)
-	fmt.Println("URL Safe Encoded string:", urlSafeEncorded)
+	urlSafeEncoded := base64.URLEncoding.EncodeToString(data)
+	fmt.Println("URL Safe Encoded string:", urlSafeEncoded)
+
+	urlSafeDecoded, err := base64.URLEncoding.DecodeString(urlSafeEncoded)
+	if err != nil {
+		fmt.Println("Error decoding:", err.Error())
+		return
+	}
+	fmt.Println("URL Safe Decoded string:", string(urlSafeDecoded))
 
 }

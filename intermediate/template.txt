@@ -87,8 +87,16 @@ func main() {
 			}
 		case "2":
 			tmp = parsedTemplates["notification"]
+			data = map[string]interface{}{
+				"name":        name,
+				"notification": "You have a new message",
+			}	
 		case "3":
 			tmp = parsedTemplates["error"]
+			data = map[string]interface{}{
+				"name":        name,
+				"errorMessage": "Something went wrong",
+			}			
 		case "4":
 			fmt.Println("Exiting...")
 			return

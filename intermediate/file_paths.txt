@@ -40,7 +40,7 @@ func main() {
 	} else {
 		fmt.Println("Relative path:", rel)
 	}
-	absPath, err := filepath.Abs(`\data\file.txt`)
+	absPath, err := filepath.Abs(`C:\Users\GIANLUCA\projects\goTest\data\file.txt`)
 	if err != nil {
 		fmt.Println("Error:", err)
 	} else {

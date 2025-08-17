@@ -13,6 +13,8 @@ var example string
 //go:embed basics
 var basics embed.FS
 
+
+
 func main() {
 	fmt.Println(example)
 	entries, err := basics.ReadDir(".")
