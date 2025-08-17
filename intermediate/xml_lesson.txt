@@ -1,0 +1,44 @@
+package main
+
+import (
+	"encoding/xml"
+	"fmt"
+)
+
+type Person struct {
+	XMLName   xml.Name `xml:"person"`
+	Firstname string   `xml:"firstname,attr"`
+	Lastname  string   `xml:"lastname,attr"`
+	Age       int      `xml:"age,attr"`
+	City      string   `xml:"city,attr"`
+	Email     string   `xml:"email,attr"`
+}
+
+func main() {
+
+	person := Person{
+		Firstname: "John",
+		Lastname:  "Doe",
+		Age:       30,
+		City:      "New York",
+		Email:     "john.doe@example.com",
+	}
+
+	xmlData, err := xml.Marshal(person)
+	if err != nil {
+		// Handle error
+	}
+	fmt.Println(string(xmlData))
+
+	xmlData1, err1 := xml.MarshalIndent(person, "", "  ")
+	if err1 != nil {
+		// Handle error
+	}
+	fmt.Println(string(xmlData1))
+	xmlDataRaw := `<person><firstname>John</firstname><lastname>Doe</lastname><age>30</age><city>New York</city><email>john.doe@example.com</email></person>`
+	var person2 Person
+	if err := xml.Unmarshal([]byte(xmlDataRaw), &person2); err != nil {
+		// Handle error
+	}
+	fmt.Println(person2)
+}

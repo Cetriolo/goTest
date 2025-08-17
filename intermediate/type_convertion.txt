@@ -1,0 +1,27 @@
+package main
+
+import "fmt"
+
+func main() {
+
+	var a int = 32
+
+	b := int32(a)
+	c := float64(b)
+
+	//d := bool(true)
+	e := 3.14
+	f := int(e)
+
+	fmt.Println(c, f)
+
+	g := "HELLO @ 你还 次啊o"
+
+	var h []byte
+	h = []byte(g)
+	fmt.Println("Converted string to byte slice:", h)
+	i := []byte{255, 12, 255, 255}
+	j := string(i)
+	fmt.Println("Converted byte slice to string:", j)
+
+}
