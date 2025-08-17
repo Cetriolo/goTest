@@ -1,0 +1,23 @@
+package main
+
+import (
+	"log"
+
+	"go.uber.org/zap"
+)
+
+func main() {
+	logger, err := zap.NewProduction()
+	if err != nil {
+		log.Println("Error creating logger:", err)
+		return
+	}
+	defer logger.Sync()
+
+	logger.Info("This is an info message")
+	logger.Warn("This is a warning message")
+	logger.Error("This is an error message")
+
+	logger.Info("User logged in", zap.String("username", "johndoe"),
+		zap.String("method", "POST"))
+}

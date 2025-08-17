@@ -1,0 +1,49 @@
+package main
+
+import (
+	"fmt"
+	"path/filepath"
+	"strings"
+)
+
+func main() {
+	relativePath := "./data/file.txt"
+	absolutePath := "/home/user/docs/file.txt"
+
+	joinedPath := filepath.Join("home", "Documents", "downloads", "file.zip")
+
+	fmt.Println("Relative Path:", relativePath)
+	fmt.Println("Absolute Path:", absolutePath)
+	fmt.Println("Joined Path:", joinedPath)
+
+	normalizedPath := filepath.Clean("./data/../data/file.txt")
+
+	fmt.Println("Normalized Path:", normalizedPath)
+
+	dir, file := filepath.Split("/home/user/docs/file.txt")
+
+	fmt.Println("Directory:", dir)
+	fmt.Println("File:", file)
+
+	fmt.Println("Base of the file:", filepath.Base(absolutePath))
+
+	fmt.Println("Extension of the file:", filepath.IsAbs(`C:\Users\GIANLUCA\projects\goTest\examples.txt`))
+	fmt.Println("Extension of the file:", filepath.IsAbs(relativePath))
+
+	fmt.Println("isExtension:", filepath.Ext(relativePath))
+
+	fmt.Println(strings.TrimSuffix(file, filepath.Ext(file)))
+
+	rel, err := filepath.Rel(`C:\Users\GIANLUCA\projects\goTest\intermediate`, `C:\Users\GIANLUCA\projects\goTest\data\file.txt`)
+	if err != nil {
+		fmt.Println("Error:", err)
+	} else {
+		fmt.Println("Relative path:", rel)
+	}
+	absPath, err := filepath.Abs(`\data\file.txt`)
+	if err != nil {
+		fmt.Println("Error:", err)
+	} else {
+		fmt.Println("Absolute path:", absPath)
+	}
+}

@@ -1,0 +1,48 @@
+package main
+
+import (
+	"embed"
+	"fmt"
+	"io/fs"
+	"log"
+)
+
+//go:embed example.txt
+var example string
+
+//go:embed basics
+var basics embed.FS
+
+func main() {
+	fmt.Println(example)
+	entries, err := basics.ReadDir(".")
+	if err != nil {
+		panic(err)
+	}
+	for _, entry := range entries {
+		fmt.Println(entry.Name())
+	}
+
+	content, err := basics.ReadFile("basics/arrays.txt")
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(string(content))
+
+	err = fs.WalkDir(basics, "basics", func(path string, d fs.DirEntry, err error) error {
+		checkError(err)
+		fmt.Println(path)
+		return err
+	})
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+}
+
+func checkError(err error) {
+	if err != nil {
+		panic(err)
+	}
+}

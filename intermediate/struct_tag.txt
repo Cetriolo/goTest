@@ -1,0 +1,59 @@
+package main
+
+import (
+	"encoding/json"
+	"encoding/xml"
+	"fmt"
+)
+
+type Person struct {
+	Firstname string `json:"firstname" db:"firstname" xml:"firstname"`
+	Lastname  string `json:"lastname" db:"lastname" xml:"lastname"`
+	Age       int    `json:"-" db:"age" xml:"age"`
+}
+
+func main() {
+
+	person := Person{
+		Firstname: "John",
+		Lastname:  "Doe",
+		Age:       30,
+	}
+
+	person1 := Person{
+		Firstname: "Pippo",
+		Lastname:  "Pluto",
+	}
+	person2 := Person{
+		Firstname: "AAA",
+		Lastname:  "Pluto",
+		Age:       11,
+	}
+
+	jsonData, err := json.Marshal(person)
+	if err != nil {
+		// Handle error
+	}
+	fmt.Println(string(jsonData))
+	jsonData, err = json.Marshal(person1)
+	if err != nil {
+		// Handle error
+	}
+	fmt.Println(string(jsonData))
+
+	jsonData, err = json.Marshal(person2)
+	if err != nil {
+		// Handle error
+	}
+
+	// Use jsonData
+
+	fmt.Println(string(jsonData))
+
+	xmlData, err := xml.Marshal(person1)
+	if err != nil {
+		// Handle error
+	}
+	fmt.Println(string(xmlData))
+
+}

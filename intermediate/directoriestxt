@@ -1,0 +1,64 @@
+package main
+
+import (
+	"fmt"
+	"os"
+	"path/filepath"
+)
+
+func checkError(err error) {
+	if err != nil {
+		fmt.Println("Error:", err)
+		panic(err)
+	}
+}
+
+func main() {
+
+	// checkError(os.Mkdir("new_directory", 0755))
+
+	// defer func() {
+	// 	os.RemoveAll("new_directory")
+	// }()
+	// os.WriteFile("new_directory/file", []byte(""), 0755)
+
+	// checkError(os.MkdirAll("new_directory/parent/child", 0755))
+
+	// checkError(os.MkdirAll("new_directory/parent/child1", 0755))
+	// checkError(os.MkdirAll("new_directory/parent/child2", 0755))
+	// checkError(os.MkdirAll("new_directory/parent/child3", 0755))
+
+	// os.WriteFile("new_directory/parent/file", []byte(""), 0755)
+	// os.WriteFile("new_directory/parent/child1/file", []byte(""), 0755)
+
+	res, err := os.ReadDir("new_directory/parent")
+	checkError(err)
+
+	for _, entry := range res {
+		fmt.Println("Found entry:", entry.Name(), entry.IsDir(), entry.Type())
+	}
+
+	checkError(os.Chdir("new_directory/parent/child1"))
+	result, err := os.ReadDir(".")
+	checkError(err)
+	fmt.Println()
+	for _, entry := range result {
+		fmt.Println("Found entry:", entry.Name(), entry.IsDir(), entry.Type())
+	}
+
+	checkError(os.Chdir("../../.."))
+
+	workingDir, err := os.Getwd()
+	checkError(err)
+	fmt.Println("Current working directory:", workingDir)
+
+	pathfile := "new_directory"
+
+	err = filepath.WalkDir(pathfile, func(path string, d os.DirEntry, err error) error {
+		checkError(err)
+		fmt.Println("Found entry:", path, d.IsDir(), d.Type())
+		return nil
+	})
+	checkError(err)
+	checkError(os.RemoveAll("./new_directory"))
+}

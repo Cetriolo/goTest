@@ -1,0 +1,38 @@
+package main
+
+import (
+	"fmt"
+	"os"
+	"strings"
+)
+
+func main() {
+
+	user := os.Getenv("USERNAME")
+	home := os.Getenv("HOMEPATH")
+
+	fmt.Println("user:", user)
+	fmt.Println("home:", home)
+
+	err := os.Setenv("FRUIT", "APPLE")
+	if err != nil {
+		fmt.Println("Error setting environment variable:", err)
+	}
+	for _, e := range os.Environ() {
+
+		kvpair := strings.SplitN(e, "=", 2)
+		fmt.Println("key:", kvpair[0])
+		// "\tvalue:", kvpair[1])
+	}
+
+	fmt.Println("fruit:", os.Getenv("FRUIT"))
+
+	err = os.Unsetenv("FRUIT")
+	if err != nil {
+		fmt.Println("Error unsetting environment variable:", err)
+		return
+	}
+
+	fmt.Println("fruit:", os.Getenv("FRUIT"))
+
+}

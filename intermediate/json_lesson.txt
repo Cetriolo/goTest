@@ -1,0 +1,108 @@
+package main
+
+import (
+	"encoding/json"
+	"fmt"
+	"log"
+)
+
+type Person struct {
+	Name    string  `json:"person_name"`
+	Age     int     `json:"person_age,omitempty"`
+	Email   string  `json:"person_email,omitempty"`
+	Address Address `json:"address"`
+}
+type Address struct {
+	Street string `json:"street"`
+	City   string `json:"city"`
+}
+
+func main() {
+	person1 := Person{
+		Name:  "John Doe",
+		Age:   30,
+		Email: "john.doe@example.com",
+	}
+
+	jsonData, err := json.Marshal(person1)
+	if err != nil {
+		fmt.Println("Error marshaling JSON:", err)
+		return
+	}
+
+	fmt.Println(string(jsonData))
+
+	person2 := Person{
+		Name:  "Jane Smith",
+		Email: "jane.smith@example.com",
+		Address: Address{
+			Street: "456 Elm St",
+			City:   "Othertown",
+		},
+	}
+
+	jsonData2, err := json.Marshal(person2)
+	if err != nil {
+		fmt.Println("Error marshaling JSON:", err)
+		return
+	}
+
+	fmt.Println(string(jsonData2))
+
+	mapData := map[string]interface{}{
+		"person1": person1,
+		"person2": person2,
+	}
+	encodedMap, err := json.Marshal(mapData)
+	if err != nil {
+		fmt.Println("Error marshaling JSON:", err)
+		return
+	}
+
+	fmt.Println(string(encodedMap))
+
+	jsonData3 := `{"emp_id":"00009", "fullname": "Jane Smith","age":30, "address": {"street": "456 Elm St", "city": "Othertown"}}`
+	var emp Employee
+	err = json.Unmarshal([]byte(jsonData3), &emp)
+	if err != nil {
+		fmt.Println("Error unmarshaling JSON:", err)
+		return
+	}
+
+	fmt.Println(emp)
+	log.Println(emp.Age)
+
+	listOfCityState := []Address{
+		{Street: "456 Elm St", City: "Othertown"},
+		{Street: "789 Oak St", City: "Sometown"},
+		{Street: "101 Pine St", City: "Anytown"},
+	}
+
+	jsonList, err := json.Marshal(listOfCityState)
+	if err != nil {
+		fmt.Println("Error marshaling JSON:", err)
+		return
+	}
+
+	fmt.Println(string(jsonList))
+
+	unknownJSONData2 := `{"name" : "John", "age": "30"}`
+
+	var data map[string]interface{}
+	err = json.Unmarshal([]byte(unknownJSONData2), &data)
+	if err != nil {
+		fmt.Println("Error unmarshaling JSON:", err)
+		return
+	}
+
+	fmt.Println(data)
+	log.Println(data["age"])
+
+}
+
+type Employee struct {
+	FullName string  `json:"fullname"`
+	EmpID    string  `json:"emp_id"`
+	Age      int     `json:"age"`
+	Address  Address `json:"address"`
+}

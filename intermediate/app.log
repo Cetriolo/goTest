@@ -1,0 +1,8 @@
+DEBUG: 2025/08/17 22:02:06 logging.go:25: This is a debug message
+DEBUG: 2025/08/17 22:02:14 logging.go:25: This is a debug message
+DEBUG: 2025/08/17 22:02:15 logging.go:25: This is a debug message
+DEBUG: 2025/08/17 22:02:16 logging.go:25: This is a debug message
+DEBUG: 2025/08/17 22:03:34 logging.go:25: This is a debug message
+INFO: 2025/08/17 22:03:34 logging.go:33: This is an info message
+WARN: 2025/08/17 22:03:34 logging.go:34: This is a warning message
+ERROR: 2025/08/17 22:03:34 C:/Users/GIANLUCA/projects/goTest/logging.go:35: This is an error message

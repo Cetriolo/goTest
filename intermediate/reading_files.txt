@@ -1,0 +1,37 @@
+package main
+
+import (
+	"bufio"
+	"fmt"
+	"os"
+)
+
+func main() {
+	file, err := os.Open("example.txt")
+
+	if err != nil {
+		panic(err)
+	}
+
+	defer func() {
+		fmt.Println("Closing file")
+		file.Close()
+	}()
+	// data := make([]byte, 1024)
+	// // Read the file content
+	// _, err = file.Read(data)
+
+	// if err != nil {
+	// 	panic(err)
+	// }
+	// fmt.Println(string(data))
+	scanner1 := bufio.NewScanner(file)
+	for scanner1.Scan() {
+		line := scanner1.Text()
+		fmt.Println("Line:", line)
+	}
+	if err := scanner1.Err(); err != nil {
+		panic(err)
+	}
+
+}
