@@ -1,0 +1,107 @@
+package main
+
+import (
+	"bufio"
+	"fmt"
+	"os"
+	"strings"
+	"text/template"
+)
+
+type User struct {
+	name string
+}
+
+func main() {
+
+	// // tmp1 := template.New("example")
+
+	// // tmp1, err := tmp1.Parse("Welcome, {{.name}}! How are you doing\n")
+
+	// tmp1 := template.Must(template.New("example").Parse("Welcome, {{.name}}! How are you doing\n"))
+
+	// // if err != nil {
+	// // 	fmt.Println("Error parsing template:", err)
+	// // 	panic(err)
+	// // }
+
+	// data := map[string]interface{}{
+	// 	"name": "pippo",
+	// }
+
+	// tmp1.Execute(os.Stdout, data)
+
+	// user := User{name: "Pollo"}
+
+	// err1 := tmp1.Execute(os.Stdout, user)
+	// if err1 != nil {
+	// 	fmt.Println("Error executing template:", err1)
+	// }
+
+	reader := bufio.NewReader(os.Stdin)
+	fmt.Println("Your Name")
+	name, _ := reader.ReadString('\n')
+
+	name = strings.TrimSpace(name)
+
+	templates := map[string]string{
+		"welcome":      "Welcome, {{.name}}! We are glad you joined\n",
+		"notification": "{{.name}}, you have a new notification {{.notification}}\n",
+		"error":        "Oops , an error has occurred: {{.errorMessage}}\n",
+	}
+	//Parse
+
+	parsedTemplates := make(map[string]*template.Template)
+	for name, tmp1 := range templates {
+		parsedTemplates[name] = template.
+			Must(template.
+				New(name).
+				Parse(tmp1))
+	}
+	// Execute
+
+	for {
+		// show menu
+		fmt.Println("1. Welcome")
+		fmt.Println("2. Notification")
+		fmt.Println("3. Error")
+		fmt.Println("4. Exit")
+		fmt.Print("Choose an option: ")
+
+		choice, _ := reader.ReadString('\n')
+
+		choice = strings.TrimSpace(choice)
+
+		var data map[string]interface{}
+
+		var tmp *template.Template
+		switch choice {
+		case "1":
+			tmp = parsedTemplates["welcome"]
+			data = map[string]interface{}{
+				"name": name,
+			}
+			err := tmp.Execute(os.Stdout, data)
+			if err != nil {
+				fmt.Println("Error executing template:", err)
+			}
+		case "2":
+			tmp = parsedTemplates["notification"]
+		case "3":
+			tmp = parsedTemplates["error"]
+		case "4":
+			fmt.Println("Exiting...")
+			return
+		default:
+			fmt.Println("Invalid choice")
+			continue
+		}
+
+		// Execute the selected template
+		err := tmp.Execute(os.Stdout, data)
+		if err != nil {
+			fmt.Println("Error executing template:", err)
+		}
+
+	}
+}

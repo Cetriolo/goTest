@@ -1,0 +1,63 @@
+package main
+
+import (
+	"bufio"
+	"fmt"
+	"os"
+	"strings"
+)
+
+func main() {
+	reader := bufio.NewReader(strings.NewReader("Hello, bufio packageee!\nHow are you doing?"))
+	data := make([]byte, 20)
+
+	n, err := reader.Read(data)
+	if err != nil {
+		println("Error reading:", err.Error())
+		return
+	}
+	fmt.Printf("read %d bytes %s\n", n, data[:n])
+
+	t, err := reader.ReadString('\n')
+	if err != nil {
+		println("Error reading string:", err.Error())
+		return
+	}
+	fmt.Println("read string:", t)
+
+	writer := bufio.NewWriter(os.Stdout)
+
+	data1 := []byte("Hello, bufio package!\n")
+
+	//writer.WriteString("Hello, bufio packageee!\n")
+	//writer.Flush()
+
+	ffff, err := writer.Write(data1)
+	if err != nil {
+		println("Error writing:", err.Error())
+		return
+	}
+
+	fmt.Printf("wrote %d bytes\n", ffff)
+	error1 := writer.Flush()
+	if error1 != nil {
+		println("Error flushing:", error1.Error())
+		return
+	}
+
+	str := "This is a string!"
+
+	n, err = writer.WriteString(str)
+	if err != nil {
+		println("Error writing string:", err.Error())
+		return
+	}
+
+	fmt.Printf("wrote %d bytes\n", n)
+	err = writer.Flush()
+	if err != nil {
+		println("Error flushing:", err.Error())
+		return
+	}
+
+}

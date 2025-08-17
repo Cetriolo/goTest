@@ -1,0 +1,83 @@
+package main
+
+import (
+	"fmt"
+	// "regexp"
+	// "strconv"
+	"strings"
+	// "unicode/utf8"
+)
+
+func main() {
+	// str := "Hello Go!"
+	// fmt.Println(len(str))
+
+	// str1 := "HELLO"
+	// str2 := "WORLD"
+	// result := str1 + " " + str2
+	// fmt.Println(result)
+
+	// fmt.Println(str[0]) // prints the first byte of the string
+	// fmt.Println(str[1:5])
+
+	// num := 18
+	// strNum := strconv.Itoa(num)
+	// fmt.Println(strNum)
+
+	// fruits := "apple, orange, banana"
+	// fruits1 := "apple-orange-banana"
+	// fmt.Println(fruits)
+	// parts := strings.Split(fruits, ",")
+	// fmt.Println(parts)
+	// parts1 := strings.Split(fruits1, "-")
+	// fmt.Println(parts1)
+
+	// countries := []string{"USA", "Canada", "Mexico"}
+	// fmt.Println(countries)
+
+	// joined := strings.Join(countries, ", ")
+	// fmt.Println(joined)
+
+	// fmt.Println(strings.Contains(fruits, "orange"))
+
+	// replaced := strings.Replace(fruits, "orange", "grape", 1)
+	// fmt.Println(replaced)
+
+	// strwspaces := "Hello Every one! "
+	// fmt.Println(strings.TrimSpace(strwspaces))
+	// fmt.Println(strings.ToUpper(strwspaces))
+	// fmt.Println(strings.ToLower(strwspaces))
+
+	// fmt.Println(strings.Repeat("Go! ", 3))
+	// fmt.Println(strings.Count("Hello", "l"))
+	// fmt.Println(strings.HasPrefix("Hello, World!", "Hello"))
+	// fmt.Println(strings.HasSuffix("Hello, World!", "World!"))
+
+	// str5 := "Hel1lo, 123 GO!1234"
+
+	// re := regexp.MustCompile((`\d+`))
+
+	// resultString := re.FindAllString(str5, -1)
+
+	// fmt.Println(resultString)
+
+	// str6 := "hello 你好"
+	// fmt.Println(strings.Count(str6, "l"))
+	// fmt.Println(strings.Count(str6, "你"))
+	// fmt.Println(utf8.RuneCountInString(str6))
+
+	var builder strings.Builder
+	builder.WriteString("Hello, ")
+	builder.WriteString("World!")
+	builder.WriteString(" This is a string builder example.")
+	fmt.Println(builder.String())
+
+	builder.Reset()
+	builder.WriteString("New content after reset.")
+	fmt.Println(builder.String())
+	builder.WriteRune('!')
+	fmt.Println(builder.String())
+	result := builder.String()
+	fmt.Println(result)
+
+}

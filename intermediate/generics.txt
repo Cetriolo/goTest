@@ -1,0 +1,70 @@
+package main
+
+import "fmt"
+
+// func swap[T any](a, b T) (T, T) {
+// 	return b, a
+// }
+
+type Stack[T any] struct {
+	elements []T
+}
+
+func (s *Stack[T]) push(element T) {
+	s.elements = append(s.elements, element)
+}
+
+func (s *Stack[T]) pop() (T, bool) {
+	if len(s.elements) == 0 {
+		var zero T
+		fmt.Println("Stack is empty, cannot pop element.")
+		return zero, false
+	}
+	element := s.elements[len(s.elements)-1]
+	s.elements = s.elements[:len(s.elements)-1]
+	return element, true
+}
+
+func (s *Stack[T]) isEmpty() bool {
+	return len(s.elements) == 0
+}
+
+func (s Stack[T]) print() {
+	if len(s.elements) == 0 {
+		return
+	}
+	for i := len(s.elements) - 1; i >= 0; i-- {
+		fmt.Println(s.elements[i])
+	}
+}
+
+func main() {
+	// x, y := swap(1, 2)
+	// fmt.Println(x, y)
+
+	// a, b := swap("hello", "world")
+	// fmt.Println(a, b)
+
+	intStack := Stack[int]{}
+	intStack.push(1)
+	intStack.push(2)
+	intStack.print()
+	if !intStack.isEmpty() {
+		if elem, ok := intStack.pop(); ok {
+			fmt.Println(elem)
+		}
+	}
+
+	stringStack := Stack[string]{}
+	stringStack.push("hello")
+	stringStack.push("world")
+	stringStack.print()
+	if !stringStack.isEmpty() {
+		if elem, ok := stringStack.pop(); ok {
+			fmt.Println(elem)
+		}
+	}
+	stringStack.pop()
+	stringStack.pop()
+	stringStack.pop()
+}

@@ -1,0 +1,24 @@
+package main
+
+import (
+	"fmt"
+	"time"
+)
+
+func main() {
+	epoch := time.Now().Unix()
+	fmt.Println("Current epoch time:", epoch)
+
+	since1 := time.Since(time.Unix(epoch, 0))
+	fmt.Println("Time since epoch:", since1)
+
+	now := time.Now()
+	fmt.Println("Current time:", now)
+	unixTime := now.Unix()
+	fmt.Println("Current Unix time:", unixTime)
+
+	timeFromUnix := time.Unix(unixTime, 0)
+	fmt.Println("Time from Unix:", timeFromUnix)
+	fmt.Println("Time from Unix:", timeFromUnix.Format("2006-01-02 15:04:05"))
+
+}

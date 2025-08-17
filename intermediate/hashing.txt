@@ -1,0 +1,71 @@
+package main
+
+import (
+	"crypto/rand"
+	"crypto/sha256"
+	"encoding/base64"
+	"fmt"
+	"io"
+)
+
+func main() {
+
+	password := "password123"
+
+	// hash := sha256.Sum256([]byte(password))
+	// fmt.Println(hash)
+
+	// fmt.Printf("SHA-256 hash of '%s': hex value : %x\n", password, hash)
+
+	// hash512 := sha512.Sum512([]byte(password))
+	// fmt.Printf("SHA-512 hash of '%s': hex value : %x\n", password, hash512)
+
+	salt, err := generateSalt()
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println("salt : ", salt)
+	fmt.Printf("salt HEX: %x \n", salt)
+
+	hashedPassword := HashPassword(password, salt)
+
+	fmt.Println("Salt:", base64.StdEncoding.EncodeToString(salt))
+	fmt.Println("Hashed Password:", hashedPassword)
+
+	base64DecodedSalt, _ := base64.StdEncoding.DecodeString(base64.StdEncoding.EncodeToString(salt))
+
+	fmt.Println("Base64 Decoded Salt:", base64DecodedSalt)
+
+	loginHash := HashPassword(password, base64DecodedSalt)
+
+	fmt.Println("Login Hash:", loginHash)
+
+	if hashedPassword == loginHash {
+		fmt.Println("Login successful!")
+	} else {
+		fmt.Println("Login failed!")
+	}
+
+}
+
+func salting(password string) string {
+	salt := "random_salt"
+	return password + salt
+}
+
+func generateSalt() ([]byte, error) {
+	salt := make([]byte, 16) // Generate a 16-byte salt
+	_, err := io.ReadFull(rand.Reader, salt)
+	if err != nil {
+		return nil, err
+	}
+	return salt, nil
+}
+
+func HashPassword(p string, salt []byte) string {
+	saltedPassword := append(salt, []byte(p)...)
+
+	hash := sha256.Sum256(saltedPassword)
+	return base64.StdEncoding.EncodeToString(hash[:])
+}

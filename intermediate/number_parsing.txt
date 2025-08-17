@@ -1,0 +1,60 @@
+package main
+
+import (
+	"fmt"
+	"strconv"
+)
+
+func main() {
+
+	numStr := "12345"
+
+	num, err := strconv.Atoi(numStr)
+	if err != nil {
+		// Handle error
+	}
+
+	println("Parsed number:", num+1)
+
+	if intValue, err := strconv.ParseInt(numStr, 10, 64); err == nil {
+		println("Parsed int64:", intValue)
+	} else {
+		println("Error parsing int64:", err)
+	}
+
+	floatStr := "123.45"
+	floatVal, err := strconv.ParseFloat(floatStr, 64)
+	if err != nil {
+		fmt.Println("Error parsing float:", err)
+		return
+	}
+	println("Parsed float:", floatVal)
+
+	if err != nil {
+		fmt.Println("Error parsing float:", err)
+		return
+	}
+
+	println("Parsed float:", floatVal)
+
+	fmt.Printf("Parsed float: %.2f\n", floatVal)
+
+	binaryStr := "1010"
+
+	decimal, err := strconv.ParseInt(binaryStr, 2, 64)
+	if err != nil {
+		fmt.Println("Error parsing binary:", err)
+		return
+	}
+	println("Parsed binary:", decimal)
+
+	hexStr := "FF"
+
+	decimal1, err := strconv.ParseInt(hexStr, 16, 64)
+	if err != nil {
+		fmt.Println("Error parsing hex:", err)
+		return
+	}
+	println("Parsed hex:", decimal1)
+
+}

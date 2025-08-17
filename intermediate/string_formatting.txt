@@ -1,0 +1,26 @@
+package main
+
+import "fmt"
+
+func main() {
+
+	var name = "John"
+	var age = 30
+	var city = "New York"
+
+	var formattedString = fmt.Sprintf("My name is %s, I am %d years old and I live in %s.", name, age, city)
+	fmt.Println(formattedString)
+
+	num := 42
+	fmt.Printf("%05d\n", num)
+
+	message := "HELLO"
+	fmt.Printf("|%10s|\n", message)
+	fmt.Printf("|%-10s|\n", message)
+
+	message1 := "heelo \n world!"
+	message2 := `heelo \n world!`
+	fmt.Println(message1)
+	fmt.Println(message2)
+
+}

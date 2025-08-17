@@ -1,0 +1,46 @@
+package main
+
+import (
+	"fmt"
+	"regexp"
+)
+
+func main() {
+
+	reg := regexp.
+		MustCompile(`[a-zA-Z0-9._+%-]+@[a-zA-Z0-9.]+\.[a-zA-Z]{2,}`)
+
+	email1 := "user@example.com"
+
+	email2 := "invalid_email"
+
+	fmt.Println("Email 1:", reg.MatchString(email1)) // true
+	fmt.Println("Email 2:", reg.MatchString(email2)) // false
+
+	reg2 := regexp.MustCompile(`(\d){4}-(\d){2}-(\d){2}`)
+
+	date1 := "2023-03-15"
+	date2 := "15-03-2023"
+
+	fmt.Println("Date 1:", reg2.MatchString(date1)) // true
+	fmt.Println("Date 2:", reg2.MatchString(date2)) // false
+
+	subMatch := reg2.FindStringSubmatch(date1)
+	fmt.Println(subMatch[1]) // 2023
+	fmt.Println(subMatch[0]) // 2023
+	fmt.Println(subMatch[3]) // 2023
+	fmt.Println(subMatch[2]) // 2023
+
+	str := "Hello, World!"
+	reg3 := regexp.MustCompile(`[aeiou]`)
+	result := reg3.ReplaceAllString(str, "*")
+
+	fmt.Println("Original string:", str)
+	fmt.Println("Modified string:", result)
+
+	reg4 := regexp.MustCompile(`(?i)go`)
+
+	testString := "Golang is great. I love Go programming."
+	fmt.Println("Test string:", testString)
+	fmt.Println("Matches:", reg4.MatchString(testString))
+}

@@ -1,0 +1,50 @@
+package main
+
+import (
+	"fmt"
+	"time"
+)
+
+func main() {
+	now := time.Now()
+	fmt.Println(now)
+
+	specificTime := time.Date(2024, time.July, 30, 12, 0, 0, 0, time.UTC)
+	fmt.Println(specificTime)
+	// Mon Jan  2 15:04:05 MST 2006 reference date
+	parsedTime, _ := time.Parse("2006-01-02", "2020-05-01")
+	parsedTime1, _ := time.Parse("06-01-02", "20-05-01")
+	parsedTime2, _ := time.Parse("06-01-02 15-04", "20-05-01 18-03")
+	fmt.Println(parsedTime)
+	fmt.Println(parsedTime1)
+	fmt.Println(parsedTime2)
+
+	t := time.Now()
+	fmt.Println(t.Format("Mon 06-01-02 15:04:05"))
+
+	oneDayLater := t.Add(time.Hour * 24)
+	fmt.Println(oneDayLater)
+	fmt.Println(oneDayLater.Weekday())
+	fmt.Println(oneDayLater.Format("Mon 06-01-02 15:04:05"))
+
+	fmt.Println("Roundet time:", t.Round(time.Hour))
+
+	loc, _ := time.LoadLocation("Asia/Kolkata")
+
+	t = time.Date(2024, time.July, 30, 12, 0, 0, 0, time.UTC)
+	fmt.Println(t)
+	tLocal := t.In(loc)
+	fmt.Println(tLocal)
+
+	roundedTime := t.Round(time.Hour)
+	fmt.Println(roundedTime)
+	roundedTimeLocal := roundedTime.In(loc)
+	fmt.Println(roundedTimeLocal)
+	fmt.Println("truncate", t.Truncate(time.Hour))
+
+	loc1, _ := time.LoadLocation("America/New_York")
+
+	tInNy := time.Now().In(loc1)
+	fmt.Println(tInNy)
+
+}

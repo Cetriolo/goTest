@@ -1,0 +1,75 @@
+package main
+
+import (
+	"errors"
+	"fmt"
+)
+
+func sqrt(x float64) (float64, error) {
+	if x < 0 {
+		return 0.0, errors.New("cannot take square root of negative number")
+	}
+	return 1.0, nil
+}
+
+// func process(data []byte) error {
+// 	if len(data) == 0 {
+// 		return errors.New("data cannot be empty")
+// 	}
+// 	return nil
+// }
+
+func main() {
+
+	// result, err := sqrt(16)
+	// if err != nil {
+	// 	fmt.Println("Error:", err)
+	// 	return
+	// }
+	// fmt.Println("Square root:", result)
+	// result, err = sqrt(-4)
+	// if err != nil {
+	// 	fmt.Println("Error:", err)
+	// 	return
+	// }
+	// fmt.Println("Square root:", result)
+
+	// if err := process([]byte("some data")); err != nil {
+	// 	fmt.Println("Error:", err)
+	// 	return
+	// }
+
+	//data := []byte{}
+	// if err := process(); err != nil {
+	// 	fmt.Println("Error:", err)
+	// 	return
+	// }
+	// fmt.Println("Data processed successfully")
+	err := readData()
+	if err != nil {
+		fmt.Println("Error:", err)
+	}
+	fmt.Println("Program completed successfully")
+}
+
+// type myError struct {
+// 	message string
+// }
+
+// func (e *myError) Error() string {
+// 	return fmt.Sprintf("myError: %s", e.message)
+// }
+// func process() error {
+// 	return &myError{message: "something went wrong"}
+// }
+
+func readData() error {
+	err := readConfig()
+	if err != nil {
+		return fmt.Errorf("readData : %w", err)
+	}
+	return nil
+}
+func readConfig() error {
+	return errors.New("config error")
+}

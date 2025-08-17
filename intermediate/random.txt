@@ -1,0 +1,48 @@
+package main
+
+import (
+	"fmt"
+	"math/rand"
+	"time"
+)
+
+func main() {
+
+	randomNum := rand.Intn(101)
+	fmt.Println("Random number:", randomNum+1)
+
+	val := rand.New(rand.NewSource(42))
+	fmt.Println("Random number with new source:", val.Intn(101))
+
+	val1 := rand.New(rand.NewSource(time.Now().Unix()))
+
+	fmt.Println("Random number with current time source:", val1.Intn(101))
+
+	fmt.Println("Random float:", rand.Float64())
+
+	for {
+		fmt.Println("Welcome to dice game")
+		fmt.Println("Press 1 to roll the dice")
+		fmt.Println("Press 2 to exit")
+		fmt.Print("Enter your choice:")
+		var choice int
+		_, err := fmt.Scan(&choice)
+		if err != nil || (choice != 1 && choice != 2) {
+			fmt.Println("Invalid input. Please enter a number.")
+			continue
+		}
+
+		if choice == 2 {
+			fmt.Println("Exiting the game. Goodbye!")
+			break
+		}
+
+		fmt.Println("Rolling the dice...")
+		diceRoll := rand.Intn(6) + 1
+		fmt.Println("You rolled a", diceRoll)
+
+		if diceRoll == 6 {
+			fmt.Println("Congratulations! You rolled a 6!")
+		}
+	}
+}
