@@ -1,0 +1,50 @@
+package main
+
+import (
+	"fmt"
+	"time"
+)
+
+func main() {
+	fmt.Println("Starting main function")
+	go sayHello()
+	fmt.Println("Go main function")
+	go printNumbers()
+	go printLetters()
+	go func() {
+		err := doWork()
+		if err != nil {
+			fmt.Println("Error:", err)
+		}
+	}()
+
+	time.Sleep(2 * time.Second) // Wait for the goroutine to finish
+}
+func sayHello() {
+
+	time.Sleep(1 * time.Second)
+	fmt.Println("Hello from goroutine")
+}
+
+func printNumbers() {
+	for i := 0; i < 5; i++ {
+		fmt.Println(time.Now(), "      ", i)
+
+		time.Sleep(100 * time.Millisecond)
+	}
+	fmt.Println("Finished printing numbers")
+}
+
+func printLetters() {
+	for _, letter := range "abcde" {
+		fmt.Println(time.Now(), "    ", string(letter))
+		time.Sleep(200 * time.Millisecond)
+	}
+}
+
+func doWork() error {
+	fmt.Println("Starting work...")
+	time.Sleep(1 * time.Second)
+	fmt.Println("Finished work.")
+	return fmt.Errorf("work error occurred")
+}

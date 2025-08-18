@@ -1,0 +1,74 @@
+package main
+
+import (
+	"fmt"
+	"time"
+)
+
+// func main() {
+// 	ch1 := make(chan int)
+// 	ch2 := make(chan int)
+
+// 	go func() {
+// 		//time.Sleep(1 * time.Second)
+// 		ch1 <- 1
+// 	}()
+// 	go func() {
+// 		time.Sleep(1 * time.Second)
+// 		ch2 <- 2
+// 	}()
+// 	time.Sleep(3 * time.Second)
+// 	for range 2 {
+// 		select {
+// 		case msg := <-ch1:
+// 			fmt.Println("ch1:", msg)
+// 		case msg := <-ch2:
+// 			fmt.Println("ch2:", msg)
+// 		default:
+// 			fmt.Println("No messages received from either channel")
+// 		}
+// 	}
+// 	fmt.Println("End")
+
+// }
+
+// // func main() {
+// // 	ch := make(chan int)
+// // 	go func() {
+// // 		time.Sleep(2 * time.Second)
+// // 		ch <- 1
+// // 		close(ch)
+// // 	}()
+
+// // 	select {
+// // 	case msg, ok := <-ch:
+// // 		if !ok {
+// // 			fmt.Println("Channel closed, no message received")
+// // 		}
+// // 		fmt.Println("Received:", msg)
+// // 	case <-time.After(1 * time.Second):
+// // 		fmt.Println("Timeout: No message received within 1 second")
+// // 	}
+
+// // }
+
+func main() {
+
+	ch := make(chan int)
+
+	go func() {
+		time.Sleep(2 * time.Second)
+		ch <- 1
+		close(ch)
+	}()
+	for {
+		select {
+		case msg, ok := <-ch:
+			if !ok {
+				fmt.Println("Channel closed, no message received")
+				return
+			}
+			fmt.Println("Received:", msg)
+		}
+	}
+}

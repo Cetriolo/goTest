@@ -1,0 +1,39 @@
+package main
+
+import (
+	"fmt"
+	"time"
+)
+
+func main() {
+	//var := make(chan Type)
+
+	greeting := make(chan string)
+	greetString := "Hello, goroutine"
+
+	go func() {
+		greeting <- greetString
+		greeting <- greetString + " again"
+		for _, e := range "abcde" {
+			greeting <- "Alphabet: " + string(e)
+		}
+	}()
+	// go func() {
+	// 	receiver := <-greeting
+	// 	fmt.Println(receiver)
+	// 	receiver = <-greeting
+	// 	fmt.Println(receiver)
+	// }()
+
+	for _ = range 5 {
+		rcvr := <-greeting
+		fmt.Println(rcvr)
+	}
+	receiver := <-greeting
+	fmt.Println(receiver)
+	receiver = <-greeting
+	fmt.Println(receiver)
+	time.Sleep(2 * time.Second)
+	fmt.Println("Main function finished execution")
+
+}

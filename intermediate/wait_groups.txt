@@ -1,0 +1,96 @@
+package main
+
+import (
+	"fmt"
+	"sync"
+	"time"
+)
+
+// func worker(id int, wg *sync.WaitGroup) {
+// 	defer wg.Done()
+// 	fmt.Printf("Worker %d starting\n", id)
+// 	time.Sleep(time.Second)
+// 	fmt.Printf("Worker %d finished\n", id)
+// }
+
+// func main() {
+// 	var wg sync.WaitGroup
+
+// 	numWorkers := 3
+
+// 	wg.Add(numWorkers)
+
+// 	for i := range numWorkers {
+// 		go worker(i, &wg)
+// 	}
+
+// 	wg.Wait()
+// 	fmt.Println("All workers completed")
+// }
+
+// func worker(id int, results chan<- int, tasks <-chan int, wg *sync.WaitGroup) {
+// 	defer wg.Done()
+// 	fmt.Printf("Worker %d starting\n", id)
+// 	time.Sleep(time.Second)
+// 	fmt.Printf("Worker %d finished\n", id)
+// 	results <- id * 2 // Simulating some result
+// 	fmt.Printf("Worker %d sent result\n", id)
+// }
+
+// func main() {
+// 	var wg sync.WaitGroup
+// 	numJobs := 5
+
+// 	results := make(chan int, numJobs)
+
+// 	numWorkers := 3
+
+// 	tasks := make(chan int, numJobs)
+
+// 	wg.Add(numWorkers)
+
+// 	for i := 0; i < numWorkers; i++ {
+// 		go worker(i, results, tasks, &wg)
+// 	}
+
+// 	for i := range numJobs {
+// 		tasks <- i + 1
+
+// 	}
+// 	close(tasks)
+
+// 	go func() {
+// 		wg.Wait()
+// 		close(results)
+// 	}()
+
+// 	for result := range results {
+// 		fmt.Printf("Result from worker: %d\n", result)
+// 	}
+// }
+
+type Worker struct {
+	ID   int
+	Task string
+}
+
+func (w *Worker) Performtask(wg *sync.WaitGroup) {
+	defer wg.Done()
+	fmt.Printf("Worker %d starting task: %s\n", w.ID, w.Task)
+	time.Sleep(time.Second)
+	fmt.Printf("Worker %d finished task: %s\n", w.ID, w.Task)
+}
+
+func main() {
+	var wg sync.WaitGroup
+
+	tasks := []string{"digging", "laying bricks", "painting"}
+	for i, task := range tasks {
+		worker := Worker{ID: i + 1, Task: task}
+		wg.Add(1)
+		go worker.Performtask(&wg)
+	}
+
+	wg.Wait()
+	fmt.Println("All workers completed")
+}

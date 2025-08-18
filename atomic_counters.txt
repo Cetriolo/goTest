@@ -1,0 +1,40 @@
+package main
+
+import (
+	"sync"
+	"sync/atomic"
+)
+
+type AtomicCounter struct {
+	count int64
+}
+
+func (a *AtomicCounter) Increment() {
+	atomic.AddInt64(&a.count, 1)
+}
+
+func (a *AtomicCounter) getValue() int64 {
+	return atomic.LoadInt64(&a.count)
+}
+
+func main() {
+	var wg sync.WaitGroup
+	numRoutines := 10
+	counter := &AtomicCounter{}
+	value := int64(0)
+
+	for range numRoutines {
+		wg.Add(1)
+		go func() {
+
+			defer wg.Done()
+			for range 1000 {
+				counter.Increment()
+				value++
+			}
+		}()
+	}
+
+	wg.Wait()
+	println("Final Counter Value:", counter.getValue(), value)
+}

@@ -1,0 +1,51 @@
+package main
+
+import (
+	"context"
+	"fmt"
+	"time"
+)
+
+// func main() {
+// 	todoContext := context.TODO()
+// 	contextBackground := context.Background()
+
+// 	ctx := context.WithValue(todoContext, "name", "john")
+// 	ctx1 := context.WithValue(contextBackground, "city", "new york")
+// 	fmt.Println(ctx.Value("name"))
+// 	fmt.Println(ctx1.Value("city"))
+
+// }
+
+func checkEvenOdd(ctx context.Context, number int) string {
+	select {
+	case <-ctx.Done():
+		return "Context cancelled"
+	default:
+		if number%2 == 0 {
+			return fmt.Sprintf("Even number: %d", number)
+		} else {
+			return fmt.Sprintf("Odd number: %d", number)
+		}
+	}
+}
+
+func main() {
+	//ctx, cancel := context.WithCancel(context.TODO())
+
+	ctx := context.TODO()
+	result := checkEvenOdd(ctx, 3)
+	fmt.Println(result)
+
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+
+	defer cancel()
+
+	go func() {
+		time.Sleep(2 * time.Second)
+		cancel()
+	}()
+
+	result = checkEvenOdd(ctx, 4)
+	fmt.Println(result)
+}

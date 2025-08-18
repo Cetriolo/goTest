@@ -1,0 +1,61 @@
+package main
+
+import (
+	"fmt"
+	"time"
+)
+
+// func main() {
+// 	time.Sleep(1 * time.Second)
+// 	fmt.Println("Timer Started")
+
+// 	timer := time.NewTimer(2 * time.Second)
+// 	<-timer.C
+// 	stopped := timer.Stop()
+// 	if stopped {
+// 		fmt.Println("Timer stopped before expiration")
+// 	}
+// 	fmt.Println("Timer reset")
+// 	timer.Reset(1 * time.Second)
+// 	fmt.Println("Timer reset to 1 second")
+// 	fmt.Println("Timer expired")
+
+// }
+
+// func longRunningTask() {
+// 	for i := range 20 {
+// 		fmt.Printf("Task running: %d\n", i)
+// 		time.Sleep(time.Second)
+// 	}
+// }
+
+// func main() {
+// 	timeout := time.After(4 * time.Second)
+// 	done := make(chan bool)
+
+// 	go func() {
+// 		longRunningTask()
+// 		done <- true
+// 	}()
+
+// 	select {
+// 	case <-timeout:
+// 		fmt.Println("Timeout reached")
+// 	case <-done:
+// 		fmt.Println("Task completed before timeout")
+// 	}
+
+// 	fmt.Println("Main function completed")
+// }
+
+func main() {
+	timer := time.NewTimer(2 * time.Second)
+	defer timer.Stop()
+	go func() {
+		<-timer.C
+		fmt.Println("Timer expired")
+	}()
+	fmt.Println("Waiting")
+	time.Sleep(3 * time.Second)
+
+}

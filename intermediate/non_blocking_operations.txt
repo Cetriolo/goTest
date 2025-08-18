@@ -1,0 +1,60 @@
+package main
+
+import (
+	"fmt"
+	"time"
+)
+
+func main() {
+	// NON BLOCKING RECEIVE OPERATION
+
+	// ch := make(chan int)
+	// select {
+	// case msg := <-ch:
+	// 	fmt.Println("Received:", msg)
+	// default:
+	// 	fmt.Println("No message received, continuing execution")
+	// }
+
+	// //NON BLOCKING SEND OPERATION
+
+	// select {
+	// case ch <- 1:
+	// 	fmt.Println("Sent: 1")
+	// default:
+	// 	fmt.Println("No receiver ready, continuing execution")
+	// }
+
+	//NON BLOCKING OPERATION IN REAL TIME SYSTEMS
+
+	data := make(chan int)
+	quit := make(chan bool)
+
+	go func() {
+		for {
+			select {
+			case d, ok := <-data:
+				if !ok {
+					fmt.Println("Data channel closed")
+					return
+				}
+				fmt.Println("Received data:", d)
+			case <-quit:
+				fmt.Println("Quitting goroutine")
+				return
+			default:
+				// Perform non-blocking operation
+				fmt.Println("No data received, performing other tasks...")
+				time.Sleep(500 * time.Millisecond)
+			}
+		}
+
+	}()
+	for i := range 5 {
+		data <- i
+		time.Sleep(200 * time.Millisecond)
+	}
+
+	quit <- true
+	time.Sleep(1 * time.Second)
+}
