@@ -1,0 +1,59 @@
+package main
+
+import (
+	"fmt"
+	"sync"
+	"time"
+)
+
+type RateLimiter struct {
+	mu        sync.Mutex
+	count     int
+	limit     int
+	window    time.Duration
+	resetTime time.Time
+}
+
+func NewRateLimiter(limit int, window time.Duration) *RateLimiter {
+	return &RateLimiter{
+		limit:  limit,
+		window: window,
+	}
+}
+func (r1 *RateLimiter) Allow() bool {
+	r1.mu.Lock()
+	defer r1.mu.Unlock()
+	now := time.Now()
+
+	if now.After(r1.resetTime) {
+		r1.resetTime = now.Add(r1.window)
+		r1.count = 0
+	}
+
+	if r1.count < r1.limit {
+		r1.count++
+		return true
+	}
+	return false
+}
+
+func main() {
+	var wg sync.WaitGroup
+	rateLimiter := NewRateLimiter(3, 3*time.Second)
+
+	for range 10 {
+		wg.Add(1)
+		go func() {
+			if rateLimiter.Allow() {
+				fmt.Println("Allowed")
+			} else {
+				fmt.Println("Denied")
+			}
+			wg.Done()
+		}()
+
+		// time.Sleep(200 * time.Millisecond) // Simulate some processing time
+	}
+	wg.Wait()
+
+}
