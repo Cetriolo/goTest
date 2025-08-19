@@ -17,7 +17,6 @@ func main() {
 			fmt.Println("Error:", err)
 		}
 	}()
-
 	time.Sleep(2 * time.Second) // Wait for the goroutine to finish
 }
 func sayHello() {

@@ -15,14 +15,16 @@ package main
 // 	}
 // }
 
-func main() {
-	ch := make(chan int)
-	close(ch)
+// func main() {
+// 	ch := make(chan int)
+// 	close(ch)
 
-	val, ok := <-ch
-	if !ok {
-		println("Channel closed!")
-	} else {
-		println(val)
-	}
-}
+// 	val, ok := <-ch
+// 	if !ok {
+// 		println("Channel closed!")
+// 	} else {
+// 		println(val)
+// 	}
+// }
+
+

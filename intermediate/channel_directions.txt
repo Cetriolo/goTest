@@ -4,22 +4,27 @@ import "fmt"
 
 func main() {
 	ch := make(chan int)
+	producer(ch)
+
+	// for value := range ch {
+	// 	fmt.Println("Received value:", value)
+	// }
+	consumer(ch)
+
+}
+
+func producer(ch chan int) {
 	go func(ch chan<- int) {
 		for i := range 5 {
 			ch <- i
 		}
 		close(ch)
 	}(ch)
-
-	// for value := range ch {
-	// 	fmt.Println("Received value:", value)
-	// }
-	receiveData(ch)
-
 }
 
-func receiveData(ch <-chan int) {
+func consumer(ch <-chan int) {
 	for value := range ch {
 		fmt.Println("Received value:", value)
 	}
 }
+ 

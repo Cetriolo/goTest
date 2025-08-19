@@ -24,15 +24,16 @@ func main() {
 	// 	receiver = <-greeting
 	// 	fmt.Println(receiver)
 	// }()
-
-	for _ = range 5 {
-		rcvr := <-greeting
-		fmt.Println(rcvr)
-	}
 	receiver := <-greeting
 	fmt.Println(receiver)
 	receiver = <-greeting
 	fmt.Println(receiver)
+	
+	for range 5 {
+		rcvr := <-greeting
+		fmt.Println(rcvr)
+	}
+
 	time.Sleep(2 * time.Second)
 	fmt.Println("Main function finished execution")
 

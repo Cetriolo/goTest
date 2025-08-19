@@ -83,6 +83,7 @@ func writeToFile(filepath string, data string) {
 	// }
 
 	writeToWriter(writer, data)
+	closeResource(file)
 }
 
 func main() {
@@ -130,10 +131,9 @@ func main() {
 	fmt.Println("==WRITE TO FILE==")
 	writeToFile("output.txt", "Hello, file!\n")
 
-	resource := MyResource{name: "MyResource"}
+	resource := &MyResource{name: "MyResource"}
 	resource.name = "UpdatedResource"
 	fmt.Println("Resource name:", resource.name)
-	defer closeResource(resource)
 
 }
 
