@@ -1,0 +1,101 @@
+package main
+
+import (
+	"fmt"
+	"reflect"
+)
+
+// func main() {
+
+// 	x := 42
+
+// 	v := reflect.ValueOf(x)
+
+// 	t := v.Type()
+
+// 	fmt.Println(x, "is of type", t)
+// 	fmt.Println(v, "is of kind", v.Kind() == reflect.Int)
+// 	fmt.Println(v, "is of kind", v.Kind() == reflect.String)
+// 	fmt.Println(v, "is of zero value", v.IsZero())
+
+// 	y := 10
+// 	//for getting the element of the pointer .Elem()
+// 	v1 := reflect.ValueOf(&y).Elem()
+// 	v2 := reflect.ValueOf(&y)
+
+// 	fmt.Println(v2, "is of type", v2.Type())
+
+// 	fmt.Println("Original value of y:", v.Int())
+
+// 	v1.SetInt(20)
+
+// 	fmt.Println("Updated value of v1:", v1.Int())
+
+// 	var itf interface{} = "Hello"
+
+// 	v3 := reflect.ValueOf(itf)
+
+// 	if v3.Kind() == reflect.String {
+// 		fmt.Println("itf is a string with value:", v3.String())
+// 	}
+
+// }
+
+type Person struct {
+	Name string
+	Age  int
+}
+
+// func main() {
+
+// 	p := Person{Name: "Alice", Age: 30}
+
+// 	v := reflect.ValueOf(p)
+
+// 	for i := range v.NumField() {
+// 		fmt.Println(i, ":", v.Field(i))
+// 	}
+
+// 	v1 := reflect.ValueOf(&p).Elem()
+
+// 	nameField := v1.FieldByName("Name")
+// 	//fmt.Println("Name:", nameField)
+// 	//can only be set if the field and struct start with an uppercase letter
+// 	if nameField.CanSet() {
+// 		nameField.SetString("Bob")
+// 	} else {
+// 		fmt.Println("Name field cannot be set")
+// 	}
+
+// 	fmt.Println("Updated Name:", p)
+// }
+
+type Greeter struct {
+}
+
+func (g Greeter) Greet(name string) string {
+	return "Hello, " + name
+}
+
+func main() {
+
+	v := Greeter{}
+
+	t := reflect.TypeOf(v)
+
+	fmt.Println("Type:", t)
+	fmt.Println("Number of Methods:", t.NumMethod())
+	for i := range t.NumMethod() {
+		method := t.Method(i)
+		fmt.Println("Method Name:", method.Name)
+	}
+
+	g := reflect.ValueOf(v)
+
+	m := g.MethodByName("Greet")
+	fmt.Println("Method:", &m)
+
+	result := m.Call([]reflect.Value{reflect.ValueOf("Jane")})
+
+	fmt.Println("Result:", result[0].String())
+}

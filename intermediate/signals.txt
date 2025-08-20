@@ -1,0 +1,49 @@
+package main
+
+import (
+	"fmt"
+	"os"
+	"os/signal"
+	"syscall"
+	"time"
+)
+
+func main() {
+	sigs := make(chan os.Signal, 1)
+	// signal.Notify(sign, syscall.SIGINT, syscall.SIGTERM)
+	// <-sign
+
+	//tasklist for listing all processes
+	//SIGTERM taskkill /F /PID <pid>
+	//Stop-Process -Id <pid> - ONLY on PS
+
+	//notify channel on interrupt or terminate signal
+	//========================================================//
+	pid := os.Getpid()
+	fmt.Println("Process ID:", pid)
+	signal.Notify(sigs, syscall.SIGINT, syscall.SIGTERM, syscall.SIGHUP)
+
+	go func() {
+		//sig := <-sign
+		for sig := range sigs {
+			switch sig {
+			case syscall.SIGINT:
+				fmt.Println("Received SIGINT")
+			case syscall.SIGTERM:
+				fmt.Println("Received SIGTERM")
+			case syscall.SIGHUP:
+				fmt.Println("Received SIGHUP")
+				//NOT WORK ON Windows
+				// case syscall.SIGUSR1:
+				// 	fmt.Println("Received SIGUSR1")
+			}
+			fmt.Println("Exiting gracefully...")
+			os.Exit(0)
+		}
+	}()
+
+	fmt.Println("Waiting for signals...")
+	for {
+		time.Sleep(time.Second)
+	}
+}
